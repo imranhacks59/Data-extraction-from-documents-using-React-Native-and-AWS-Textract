@@ -1,5 +1,5 @@
  AWS Lambda Backend Setup----
- 
+
 This is a React Native application that utilizes AWS Lambda for serverless backend functionality. The application allows users to perform [mention what your application does, e.g., image text extraction] using AWS Textract.
 
 Getting Started
@@ -60,24 +60,23 @@ function extractTextFromResponse(response) {
 export const handler = async (event, context) => {
     try {
         const decodedData = Buffer.from(event.body, "base64").toString();
-        const command = new AnalyzeDocumentCommand({
-            Document: { Bytes: Buffer.from(decodedData, "base64") },
-            FeatureTypes: ["TABLES", "FORMS"],
-        });
-
+  const command = new AnalyzeDocumentCommand({Document: {Bytes: Buffer.from(decodedData, "base64")},
+        FeatureTypes: ["TABLES", "FORMS"]});
+        
         const response = await client.send(command);
         const extractedText = extractTextFromResponse(response);
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ data: extractedText })
-        };
+            body: JSON.stringify({data: extractedText})
+        }
+            
     }
-    catch (error) {
-        console.log("Error: " + error);
+    catch(error){
+        console.log("er"+error)
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Internal server error, Error processing file' })
+            body: JSON.stringify({ message: 'Internal server error, Error processing file'})
         };
     }
 };
