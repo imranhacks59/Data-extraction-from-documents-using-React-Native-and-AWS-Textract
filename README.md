@@ -1,4 +1,5 @@
  AWS Lambda Backend Setup----
+[Read my blog to learn more](https://medium.com/@imranhacks59/data-extraction-from-documents-using-react-native-and-aws-textract-79b69e4df77a)
 
 This is a React Native application that utilizes AWS Lambda for serverless backend functionality. The application allows users to perform [mention what your application does, e.g., image text extraction] using AWS Textract.
 
@@ -56,9 +57,7 @@ function extractTextFromResponse(response) {
 
     return extractedText.trim(); // Remove leading/trailing whitespace
  } 
-        
-        
-            export const handler = async (event, context) => {
+          export const handler = async (event, context) => {
     try {
         const decodedData = Buffer.from(event.body, "base64").toString();
   const command = new AnalyzeDocumentCommand({Document: {Bytes: Buffer.from(decodedData, "base64")},
