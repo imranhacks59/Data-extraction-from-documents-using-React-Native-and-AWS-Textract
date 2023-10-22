@@ -57,28 +57,29 @@ function extractTextFromResponse(response) {
 
     return extractedText.trim(); // Remove leading/trailing whitespace
  } 
-          export const handler = async (event, context) => {
+        export const handler = async (event, context) => {
     try {
         const decodedData = Buffer.from(event.body, "base64").toString();
-  const command = new AnalyzeDocumentCommand({Document: {Bytes: Buffer.from(decodedData, "base64")},
-        FeatureTypes: ["TABLES", "FORMS"]});
+        const command = new AnalyzeDocumentCommand({
+            Document: { Bytes: Buffer.from(decodedData, "base64") },
+            FeatureTypes: ["TABLES", "FORMS"]
+        });
         const response = await client.send(command);
         const extractedText = extractTextFromResponse(response);
 
         return {
             statusCode: 200,
-            body: JSON.stringify({data: extractedText})
-        }
-            
-    }
-    catch(error){
-        console.log("er"+error)
+            body: JSON.stringify({ data: extractedText })
+        };
+    } catch (error) {
+        console.log("er" + error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Internal server error, Error processing file'})
+            body: JSON.stringify({ message: 'Internal server error, Error processing file' })
         };
     }
 };
+
 
 
 
