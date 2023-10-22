@@ -55,12 +55,10 @@ function extractTextFromResponse(response) {
     }
 
     return extractedText.trim(); // Remove leading/trailing whitespace
- }   
-
-
+ } 
         
-       
-        export const handler = async (event, context) => {
+        
+            export const handler = async (event, context) => {
     try {
         const decodedData = Buffer.from(event.body, "base64").toString();
   const command = new AnalyzeDocumentCommand({Document: {Bytes: Buffer.from(decodedData, "base64")},
